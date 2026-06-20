@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌸 Islamabad Flowers</div>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </nav>
+    </header>
+
+    <h1>📊 Business Reports</h1>
+
+    <div class="container">
+        <!-- Flower Inventory Report -->
+        <div class="table-container">
+            <h2>Flower Inventory Report</h2>
+            <div id="flowersReport"></div>
+        </div>
+
+        <!-- Suppliers Report -->
+        <div class="table-container">
+            <h2>Suppliers Report</h2>
+            <div id="suppliersReport"></div>
+        </div>
+
+        <!-- Bouquets Report -->
+        <div class="table-container">
+            <h2>Bouquets Report</h2>
+            <div id="bouquetsReport"></div>
+        </div>
+
+        <!-- Sales Summary Report -->
+        <div class="table-container">
+            <h2>Sales Summary Report</h2>
+            <div id="salesReport"></div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            loadFlowersReport();
+            loadSuppliersReport();
+            loadBouquetsReport();
+            loadSalesReport();
+        };
+
+        function loadFlowersReport() {
+            fetch('http://localhost:3000/reports/flowers')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('flowersReport');
+                    if (data.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; color: #999;">No flowers in inventory</p>';
+                        return;
+                    }
+                    
+                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Cost per Stem</th></tr></thead><tbody>';
+                    data.forEach(flower => {
+                        html += `<tr>
+                            <td>${flower.FlorID}</td>
+                            <td>${flower.CommonName}</td>
+                            <td>$${flower.CostPerStem}</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('flowersReport').innerHTML = '<p class="error">Error loading report</p>';
+                });
+        }
+
+        function loadSuppliersReport() {
+            fetch('http://localhost:3000/reports/suppliers')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('suppliersReport');
+                    if (data.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; color: #999;">No suppliers registered</p>';
+                        return;
+                    }
+                    
+                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Contact</th></tr></thead><tbody>';
+                    data.forEach(supplier => {
+                        html += `<tr>
+                            <td>${supplier.SupplierID}</td>
+                            <td>${supplier.SupplierName}</td>
+                            <td>${supplier.ContactNumber}</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('suppliersReport').innerHTML = '<p class="error">Error loading report</p>';
+                });
+        }
+
+        function loadBouquetsReport() {
+            fetch('http://localhost:3000/bouquet/')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('bouquetsReport');
+                    if (data.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; color: #999;">No bouquets created</p>';
+                        return;
+                    }
+                    
+                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Retail Price</th></tr></thead><tbody>';
+                    data.forEach(bouquet => {
+                        html += `<tr>
+                            <td>${bouquet.BouquetID}</td>
+                            <td>${bouquet.BouquetName}</td>
+                            <td>$${bouquet.RetailPrice}</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('bouquetsReport').innerHTML = '<p class="error">Error loading report</p>';
+                });
+        }
+
+        function loadSalesReport() {
+            fetch('http://localhost:3000/reports/sales')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('salesReport');
+                    if (data.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; color: #999;">No sales data available</p>';
+                        return;
+                    }
+                    
+                    let html = '<table><thead><tr><th>Bouquet ID</th><th>Total Flowers Used</th></tr></thead><tbody>';
+                    data.forEach(row => {
+                        html += `<tr>
+                            <td>${row.BouquetID}</td>
+                            <td>${row.TotalFlowers || 0} stems</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('salesReport').innerHTML = '<p style="text-align: center; color: #999;">No recipe data available</p>';
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Suppliers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌸 Islamabad Flowers</div>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </nav>
+    </header>
+
+    <h1>🏭 Supplier Management</h1>
+
+    <div class="container">
+        <div class="two-column">
+            <!-- Add Supplier Form -->
+            <div class="form-container">
+                <h2>Add New Supplier</h2>
+                <form action="http://localhost:3000/supplier/add" method="POST">
+                    <label for="SupplierID">Supplier ID</label>
+                    <input type="number" id="SupplierID" name="SupplierID" placeholder="Enter supplier ID" required>
+
+                    <label for="SupplierName">Supplier Name</label>
+                    <input type="text" id="SupplierName" name="SupplierName" placeholder="Enter supplier name" required>
+
+                    <label for="ContactNumber">Contact Number</label>
+                    <input type="tel" id="ContactNumber" name="ContactNumber" placeholder="Enter phone number" required>
+
+                    <button type="submit">Add Supplier</button>
+                </form>
+            </div>
+
+            <!-- Suppliers List -->
+            <div class="table-container">
+                <h2>Supplier List</h2>
+                <div id="suppliersList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load suppliers on page load
+        window.onload = () => {
+            loadSuppliers();
+        };
+
+        function loadSuppliers() {
+            fetch('http://localhost:3000/supplier/')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('suppliersList');
+                    if (data.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; color: #999;">No suppliers added yet</p>';
+                        return;
+                    }
+                    
+                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Contact</th></tr></thead><tbody>';
+                    data.forEach(supplier => {
+                        html += `<tr>
+                            <td>${supplier.SupplierID}</td>
+                            <td>${supplier.SupplierName}</td>
+                            <td>${supplier.ContactNumber}</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('suppliersList').innerHTML = '<p class="error">Error loading suppliers</p>';
+                });
+        }
+
+        // Reload suppliers after form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.submit();
+            setTimeout(loadSuppliers, 500);
+        });
+    </script>
+</body>
+</html>

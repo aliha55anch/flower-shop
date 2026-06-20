@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Flowers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌸 Islamabad Flowers</div>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </nav>
+    </header>
+
+    <h1>🌹 Flower Inventory Management</h1>
+
+    <div class="container">
+        <div class="two-column">
+            <!-- Add Flower Form -->
+            <div class="form-container">
+                <h2>Add New Flower</h2>
+                <form action="http://localhost:3000/flower/add" method="POST">
+                    <label for="FlorID">Flower ID</label>
+                    <input type="number" id="FlorID" name="FlorID" placeholder="Enter flower ID" required>
+
+                    <label for="CommonName">Flower Name</label>
+                    <input type="text" id="CommonName" name="CommonName" placeholder="e.g., Rose, Tulip, Daisy" required>
+
+                    <label for="CostPerStem">Cost per Stem ($)</label>
+                    <input type="number" id="CostPerStem" name="CostPerStem" placeholder="Enter cost" step="0.01" required>
+
+                    <button type="submit">Add Flower</button>
+                </form>
+            </div>
+
+            <!-- Flowers List -->
+            <div class="table-container">
+                <h2>Flower List</h2>
+                <div id="flowersList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load flowers on page load
+        window.onload = () => {
+            loadFlowers();
+        };
+
+        function loadFlowers() {
+            fetch('http://localhost:3000/flower/')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('flowersList');
+                    if (data.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; color: #999;">No flowers added yet</p>';
+                        return;
+                    }
+                    
+                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Cost/Stem</th></tr></thead><tbody>';
+                    data.forEach(flower => {
+                        html += `<tr>
+                            <td>${flower.FlorID}</td>
+                            <td>${flower.CommonName}</td>
+                            <td>$${flower.CostPerStem}</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('flowersList').innerHTML = '<p class="error">Error loading flowers</p>';
+                });
+        }
+
+        // Reload flowers after form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.submit();
+            setTimeout(loadFlowers, 500);
+        });
+    </script>
+</body>
+</html>
