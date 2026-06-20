@@ -21,7 +21,7 @@
             <!-- Add Supplier Form -->
             <div class="form-container">
                 <h2>Add New Supplier</h2>
-                <form action="http://localhost:3000/supplier/add" method="POST">
+                <form action="http://localhost:3300/supplier/add" method="POST">
                     <label for="SupplierID">Supplier ID</label>
                     <input type="number" id="SupplierID" name="SupplierID" placeholder="Enter supplier ID" required>
 
@@ -50,7 +50,7 @@
         };
 
         function loadSuppliers() {
-            fetch('http://localhost:3000/supplier/')
+            fetch('http://localhost:3300/supplier/')
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('suppliersList');

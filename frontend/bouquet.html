@@ -21,14 +21,14 @@
             <!-- Add Bouquet Form -->
             <div class="form-container">
                 <h2>Create New Bouquet</h2>
-                <form action="http://localhost:3000/bouquet/add" method="POST">
+                <form action="http://localhost:3300/bouquet/add" method="POST">
                     <label for="BouquetID">Bouquet ID</label>
                     <input type="number" id="BouquetID" name="BouquetID" placeholder="Enter bouquet ID" required>
 
                     <label for="BouquetName">Bouquet Name</label>
                     <input type="text" id="BouquetName" name="BouquetName" placeholder="e.g., Romantic Red, Spring Garden" required>
 
-                    <label for="RetailPrice">Retail Price ($)</label>
+                    <label for="RetailPrice">Retail Price (PKR)</label>
                     <input type="number" id="RetailPrice" name="RetailPrice" placeholder="Enter price" step="0.01" required>
 
                     <button type="submit">Create Bouquet</button>
@@ -50,7 +50,7 @@
         };
 
         function loadBouquets() {
-            fetch('http://localhost:3000/bouquet/')
+            fetch('http://localhost:3300/bouquet/')
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsList');
@@ -64,7 +64,7 @@
                         html += `<tr>
                             <td>${bouquet.BouquetID}</td>
                             <td>${bouquet.BouquetName}</td>
-                            <td>$${bouquet.RetailPrice}</td>
+                            <td>PKR ${bouquet.RetailPrice}</td>
                         </tr>`;
                     });
                     html += '</tbody></table>';

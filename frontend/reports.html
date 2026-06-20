@@ -51,7 +51,7 @@
         };
 
         function loadFlowersReport() {
-            fetch('http://localhost:3000/reports/flowers')
+            fetch('http://localhost:3300/reports/flowers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('flowersReport');
@@ -65,7 +65,7 @@
                         html += `<tr>
                             <td>${flower.FlorID}</td>
                             <td>${flower.CommonName}</td>
-                            <td>$${flower.CostPerStem}</td>
+                            <td>PKR ${flower.CostPerStem}</td>
                         </tr>`;
                     });
                     html += '</tbody></table>';
@@ -77,7 +77,7 @@
         }
 
         function loadSuppliersReport() {
-            fetch('http://localhost:3000/reports/suppliers')
+            fetch('http://localhost:3300/reports/suppliers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('suppliersReport');
@@ -103,7 +103,7 @@
         }
 
         function loadBouquetsReport() {
-            fetch('http://localhost:3000/bouquet/')
+            fetch('http://localhost:3300/bouquet/')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsReport');
@@ -117,7 +117,7 @@
                         html += `<tr>
                             <td>${bouquet.BouquetID}</td>
                             <td>${bouquet.BouquetName}</td>
-                            <td>$${bouquet.RetailPrice}</td>
+                            <td>PKR ${bouquet.RetailPrice}</td>
                         </tr>`;
                     });
                     html += '</tbody></table>';
@@ -129,7 +129,7 @@
         }
 
         function loadSalesReport() {
-            fetch('http://localhost:3000/reports/sales')
+            fetch('http://localhost:3300/reports/sales')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('salesReport');
