@@ -51,7 +51,7 @@
         };
 
         function loadFlowersReport() {
-            fetch('http://localhost:3300/reports/flowers')
+            fetch('https://isl-flower-shop.vercel.app/reports/flowers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('flowersReport');
@@ -77,7 +77,7 @@
         }
 
         function loadSuppliersReport() {
-            fetch('http://localhost:3300/reports/suppliers')
+            fetch('https://isl-flower-shop.vercel.app/reports/suppliers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('suppliersReport');
@@ -103,7 +103,7 @@
         }
 
         function loadBouquetsReport() {
-            fetch('http://localhost:3300/bouquet/')
+            fetch('https://isl-flower-shop.vercel.app/bouquet/')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsReport');
@@ -129,7 +129,7 @@
         }
 
         function loadSalesReport() {
-            fetch('http://localhost:3300/reports/sales')
+            fetch('https://isl-flower-shop.vercel.app/reports/sales')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('salesReport');
@@ -149,7 +149,7 @@
                     container.innerHTML = html;
                 })
                 .catch(error => {
-                    document.getElementById('salesReport').innerHTML = '<p style="text-align: center; color: #999;">No recipe data available</p>';
+                    document.getElementById('salesReport').innerHTML = '<p style="text-align: center; color: #999;">No sales data available</p>';
                 });
         }
     </script>
