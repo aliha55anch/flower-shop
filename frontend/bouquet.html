@@ -48,7 +48,7 @@
         
         // Set form action URL
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('bouquetForm').action = API_URL + '/bouquet/add';
+            document.getElementById('bouquetForm').action = `${API_URL}/bouquet/add`;
         });
         
         // Load bouquets on page load
@@ -57,7 +57,7 @@
         };
 
         function loadBouquets() {
-            fetch(API_URL + '/bouquet/')
+            fetch(`${API_URL}/bouquet`)
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsList');

@@ -57,7 +57,7 @@
         };
 
         function loadFlowers() {
-            fetch(API_URL + '/flower/')
+            fetch(`${API_URL}/flower`)
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('flowersList');

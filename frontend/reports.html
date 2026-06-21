@@ -53,7 +53,7 @@
         };
 
         function loadFlowersReport() {
-            fetch(API_URL + '/reports/flowers')
+            fetch(`${API_URL}/reports/flowers`)
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('flowersReport');
@@ -79,7 +79,7 @@
         }
 
         function loadSuppliersReport() {
-            fetch(API_URL + '/reports/suppliers')
+            fetch(`${API_URL}/reports/suppliers`)
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('suppliersReport');
@@ -105,7 +105,7 @@
         }
 
         function loadBouquetsReport() {
-            fetch(API_URL + '/bouquet/')
+            fetch(`${API_URL}/bouquet`)
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsReport');
@@ -131,7 +131,7 @@
         }
 
         function loadSalesReport() {
-            fetch(API_URL + '/reports/sales')
+            fetch(`${API_URL}/reports/sales`)
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('salesReport');
