@@ -7,14 +7,13 @@ const db = mysql.createPool({
     database: process.env.MYSQLDATABASE,
     port: process.env.MYSQLPORT,
     waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+    connectionLimit: 10
 });
 
-// test connection
+// DO NOT block app startup
 db.getConnection((err, connection) => {
     if (err) {
-        console.log("Database connection failed:", err.message);
+        console.log("DB connection failed:", err.message);
     } else {
         console.log("Database connected");
         connection.release();
