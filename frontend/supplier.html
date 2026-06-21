@@ -57,7 +57,7 @@
         };
 
         function loadSuppliers() {
-            fetch(API_URL + '/supplier/')
+            fetch(API_URL)
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('suppliersList');
