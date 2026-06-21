@@ -24,12 +24,13 @@ router.post("/add", (req, res) => {
 
 // GET suppliers
 router.get("/", (req, res) => {
-    const sql = "SELECT * FROM Supplier";
-
-    db.query(sql, (err, results) => {
+    console.log("Supplier API hit");
+    db.query("SELECT * FROM Supplier", (err, results) => {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            console.log("DB ERROR:", err);
+            return res.status(500).json(err);
         }
+        console.log("RESULTS:", results);
         res.json(results);
     });
 });
