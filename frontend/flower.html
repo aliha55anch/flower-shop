@@ -21,7 +21,7 @@
             <!-- Add Flower Form -->
             <div class="form-container">
                 <h2>Add New Flower</h2>
-                <form action="https://isl-flower-shop.vercel.app/flower/add" method="POST">
+                <form action="/flower/add" method="POST">
                     <label for="FlorID">Flower ID</label>
                     <input type="number" id="FlorID" name="FlorID" placeholder="Enter flower ID" required>
 
@@ -50,7 +50,7 @@
         };
 
         function loadFlowers() {
-            fetch('https://isl-flower-shop.vercel.app/flower/')
+            fetch('/flower/')
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('flowersList');

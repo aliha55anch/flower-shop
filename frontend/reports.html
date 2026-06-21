@@ -51,7 +51,7 @@
         };
 
         function loadFlowersReport() {
-            fetch('https://isl-flower-shop.vercel.app/reports/flowers')
+            fetch('/reports/flowers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('flowersReport');
@@ -77,7 +77,7 @@
         }
 
         function loadSuppliersReport() {
-            fetch('https://isl-flower-shop.vercel.app/reports/suppliers')
+            fetch('/reports/suppliers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('suppliersReport');
@@ -103,7 +103,7 @@
         }
 
         function loadBouquetsReport() {
-            fetch('https://isl-flower-shop.vercel.app/bouquet/')
+            fetch('/bouquet/')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsReport');
@@ -129,7 +129,7 @@
         }
 
         function loadSalesReport() {
-            fetch('https://isl-flower-shop.vercel.app/reports/sales')
+            fetch('/reports/sales')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('salesReport');

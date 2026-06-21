@@ -21,7 +21,7 @@
             <!-- Add Bouquet Form -->
             <div class="form-container">
                 <h2>Create New Bouquet</h2>
-                <form action="https://isl-flower-shop.vercel.app/bouquet/add" method="POST">
+                <form action="/bouquet/add" method="POST">
                     <label for="BouquetID">Bouquet ID</label>
                     <input type="number" id="BouquetID" name="BouquetID" placeholder="Enter bouquet ID" required>
 
@@ -50,7 +50,7 @@
         };
 
         function loadBouquets() {
-            fetch('https://isl-flower-shop.vercel.app/bouquet/')
+            fetch('/bouquet/')
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsList');
