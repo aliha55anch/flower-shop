@@ -4,48 +4,12 @@
     {
       "src": "index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "frontend/**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "frontend/style.css",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/.*",
+      "src": "/(.*)",
       "dest": "index.js"
-    },
-    {
-      "src": "/supplier/.*",
-      "dest": "index.js"
-    },
-    {
-      "src": "/flower/.*",
-      "dest": "index.js"
-    },
-    {
-      "src": "/bouquet/.*",
-      "dest": "index.js"
-    },
-    {
-      "src": "/reports/.*",
-      "dest": "index.js"
-    },
-    {
-      "src": "/frontend/(.*)",
-      "dest": "/frontend/$1"
-    },
-    {
-      "src": "/(.*)\\.html$",
-      "dest": "/frontend/$1.html"
-    },
-    {
-      "src": "/",
-      "dest": "/frontend/index.html"
     }
   ]
 }

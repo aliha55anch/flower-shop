@@ -9,6 +9,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static frontend files
+app.use(express.static('./frontend'));
+
 // Routes
 try {
   const supplierRoutes = require("./backend/routes/supplier");
