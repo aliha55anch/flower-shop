@@ -21,7 +21,7 @@
             <!-- Add Flower Form -->
             <div class="form-container">
                 <h2>Add New Flower</h2>
-                <form action="/flower/add" method="POST">
+                <form id="flowerForm" method="POST">
                     <label for="FlorID">Flower ID</label>
                     <input type="number" id="FlorID" name="FlorID" placeholder="Enter flower ID" required>
 
@@ -44,13 +44,20 @@
     </div>
 
     <script>
+        const API_URL = "https://flower-shop-production-a260.up.railway.app";
+        
+        // Set form action URL
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('flowerForm').action = API_URL + '/flower/add';
+        });
+        
         // Load flowers on page load
         window.onload = () => {
             loadFlowers();
         };
 
         function loadFlowers() {
-            fetch('/flower/')
+            fetch(API_URL + '/flower/')
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('flowersList');
@@ -77,7 +84,7 @@
         }
 
         // Reload flowers after form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
+        document.querySelector('#flowerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             this.submit();
             setTimeout(loadFlowers, 500);

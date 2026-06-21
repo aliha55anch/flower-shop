@@ -43,6 +43,8 @@
     </div>
 
     <script>
+        const API_URL = "https://flower-shop-production-a260.up.railway.app";
+        
         window.onload = () => {
             loadFlowersReport();
             loadSuppliersReport();
@@ -51,7 +53,7 @@
         };
 
         function loadFlowersReport() {
-            fetch('/reports/flowers')
+            fetch(API_URL + '/reports/flowers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('flowersReport');
@@ -77,7 +79,7 @@
         }
 
         function loadSuppliersReport() {
-            fetch('/reports/suppliers')
+            fetch(API_URL + '/reports/suppliers')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('suppliersReport');
@@ -103,7 +105,7 @@
         }
 
         function loadBouquetsReport() {
-            fetch('/bouquet/')
+            fetch(API_URL + '/bouquet/')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('bouquetsReport');
@@ -129,7 +131,7 @@
         }
 
         function loadSalesReport() {
-            fetch('/reports/sales')
+            fetch(API_URL + '/reports/sales')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('salesReport');

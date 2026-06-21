@@ -21,7 +21,7 @@
             <!-- Add Supplier Form -->
             <div class="form-container">
                 <h2>Add New Supplier</h2>
-                <form action="/supplier/add" method="POST">
+                <form id="supplierForm" method="POST">
                     <label for="SupplierID">Supplier ID</label>
                     <input type="number" id="SupplierID" name="SupplierID" placeholder="Enter supplier ID" required>
 
@@ -44,13 +44,20 @@
     </div>
 
     <script>
+        const API_URL = "https://flower-shop-production-a260.up.railway.app";
+        
+        // Set form action URL
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('supplierForm').action = API_URL + '/supplier/add';
+        });
+        
         // Load suppliers on page load
         window.onload = () => {
             loadSuppliers();
         };
 
         function loadSuppliers() {
-            fetch('/supplier/')
+            fetch(API_URL + '/supplier/')
                 .then(response => response.json())
                 .then(data => {
                     const container = document.getElementById('suppliersList');
@@ -77,7 +84,7 @@
         }
 
         // Reload suppliers after form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
+        document.querySelector('#supplierForm').addEventListener('submit', function(e) {
             e.preventDefault();
             this.submit();
             setTimeout(loadSuppliers, 500);
