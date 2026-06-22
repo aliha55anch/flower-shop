@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Delivery Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">🌸 Islamabad Flowers</div>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </nav>
+</header>
+
+<h1>📦 Delivery Detail Management</h1>
+
+<div class="container">
+    <div class="two-column">
+
+        <!-- Add Delivery Detail -->
+        <div class="form-container">
+
+            <h2>Add Delivery Detail</h2>
+
+            <form id="deliveryDetailForm" method="POST">
+
+                <label for="DeliveryID">
+                    Delivery ID
+                </label>
+
+                <input
+                    type="number"
+                    id="DeliveryID"
+                    name="DeliveryID"
+                    placeholder="Enter Delivery ID"
+                    required
+                >
+
+                <label for="FlowerID">
+                    Flower ID
+                </label>
+
+                <input
+                    type="number"
+                    id="FlowerID"
+                    name="FlowerID"
+                    placeholder="Enter Flower ID"
+                    required
+                >
+
+                <label for="QuantityDelivered">
+                    Quantity Delivered
+                </label>
+
+                <input
+                    type="number"
+                    id="QuantityDelivered"
+                    name="QuantityDelivered"
+                    placeholder="Enter Quantity"
+                    required
+                >
+
+                <label for="BulkPricePaid">
+                    Bulk Price Paid
+                </label>
+
+                <input
+                    type="number"
+                    step="0.01"
+                    id="BulkPricePaid"
+                    name="BulkPricePaid"
+                    placeholder="Enter Bulk Price"
+                    required
+                >
+
+                <button type="submit">
+                    Add Delivery Detail
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- Delivery Detail List -->
+        <div class="table-container">
+
+            <h2>Delivery Detail List</h2>
+
+            <div id="deliveryDetailList"></div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    const API_URL =
+    "https://flower-shop-production-a260.up.railway.app";
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        document.getElementById("deliveryDetailForm").action =
+        API_URL + "/deliverydetail/add";
+
+    });
+
+    window.onload = () => {
+        loadDeliveryDetails();
+    };
+
+    function loadDeliveryDetails() {
+
+        fetch(`${API_URL}/deliverydetail`)
+        .then(response => response.json())
+        .then(data => {
+
+            const container =
+            document.getElementById("deliveryDetailList");
+
+            if (data.length === 0) {
+
+                container.innerHTML =
+                '<p style="text-align:center;color:#999;">No delivery details added yet</p>';
+
+                return;
+            }
+
+            let html =
+            '<table><thead><tr><th>Delivery ID</th><th>Flower ID</th><th>Quantity</th><th>Bulk Price</th></tr></thead><tbody>';
+
+            data.forEach(item => {
+
+                html += `
+                <tr>
+                    <td>${item.DeliveryID}</td>
+                    <td>${item.FlowerID}</td>
+                    <td>${item.QuantityDelivered}</td>
+                    <td>${item.BulkPricePaid}</td>
+                </tr>`;
+            });
+
+            html += '</tbody></table>';
+
+            container.innerHTML = html;
+        })
+        .catch(error => {
+
+            console.error(error);
+
+            document.getElementById("deliveryDetailList").innerHTML =
+            '<p class="error">Error loading delivery details</p>';
+        });
+    }
+
+    document
+    .querySelector("#deliveryDetailForm")
+    .addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+        this.submit();
+
+        setTimeout(loadDeliveryDetails, 500);
+    });
+
+</script>
+
+</body>
+</html>
