@@ -2,158 +2,197 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">🌸 Islamabad Flowers</div>
-            <a href="index.html" class="back-link">← Back to Home</a>
-        </nav>
-    </header>
 
-    <h1>📊 Business Reports</h1>
+<header>
+    <nav>
+        <div class="logo">🌸 Islamabad Flowers</div>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </nav>
+</header>
 
-    <div class="container">
-        <!-- Flower Inventory Report -->
-        <div class="table-container">
-            <h2>Flower Inventory Report</h2>
-            <div id="flowersReport"></div>
-        </div>
+<h1>📊 Business Reports</h1>
 
-        <!-- Suppliers Report -->
-        <div class="table-container">
-            <h2>Suppliers Report</h2>
-            <div id="suppliersReport"></div>
-        </div>
+<div class="container">
 
-        <!-- Bouquets Report -->
-        <div class="table-container">
-            <h2>Bouquets Report</h2>
-            <div id="bouquetsReport"></div>
-        </div>
-
-        <!-- Sales Summary Report -->
-        <div class="table-container">
-            <h2>Sales Summary Report</h2>
-            <div id="salesReport"></div>
-        </div>
+    <div class="table-container">
+        <h2>Flower Inventory Report</h2>
+        <div id="flowersReport"></div>
     </div>
 
-    <script>
-        const API_URL = "https://flower-shop-production-a260.up.railway.app";
-        
-        window.onload = () => {
-            loadFlowersReport();
-            loadSuppliersReport();
-            loadBouquetsReport();
-            loadSalesReport();
-        };
+    <div class="table-container">
+        <h2>Suppliers Report</h2>
+        <div id="suppliersReport"></div>
+    </div>
 
-        function loadFlowersReport() {
-            fetch(`${API_URL}/reports/flowers`)
-                .then(res => res.json())
-                .then(data => {
-                    const container = document.getElementById('flowersReport');
-                    if (data.length === 0) {
-                        container.innerHTML = '<p style="text-align: center; color: #999;">No flowers in inventory</p>';
-                        return;
-                    }
-                    
-                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Cost per Stem</th></tr></thead><tbody>';
-                    data.forEach(flower => {
-                        html += `<tr>
-                            <td>${flower.FlorID}</td>
-                            <td>${flower.CommonName}</td>
-                            <td>PKR ${flower.CostPerStem}</td>
-                        </tr>`;
-                    });
-                    html += '</tbody></table>';
-                    container.innerHTML = html;
-                })
-                .catch(error => {
-                    document.getElementById('flowersReport').innerHTML = '<p class="error">Error loading report</p>';
-                });
-        }
+    <div class="table-container">
+        <h2>Bouquets Report</h2>
+        <div id="bouquetsReport"></div>
+    </div>
 
-        function loadSuppliersReport() {
-            fetch(`${API_URL}/reports/suppliers`)
-                .then(res => res.json())
-                .then(data => {
-                    const container = document.getElementById('suppliersReport');
-                    if (data.length === 0) {
-                        container.innerHTML = '<p style="text-align: center; color: #999;">No suppliers registered</p>';
-                        return;
-                    }
-                    
-                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Contact</th></tr></thead><tbody>';
-                    data.forEach(supplier => {
-                        html += `<tr>
-                            <td>${supplier.SupplierID}</td>
-                            <td>${supplier.SupplierName}</td>
-                            <td>${supplier.ContactNumber}</td>
-                        </tr>`;
-                    });
-                    html += '</tbody></table>';
-                    container.innerHTML = html;
-                })
-                .catch(error => {
-                    document.getElementById('suppliersReport').innerHTML = '<p class="error">Error loading report</p>';
-                });
-        }
+    <div class="table-container">
+        <h2>Delivery Report</h2>
+        <div id="deliveryReport"></div>
+    </div>
 
-        function loadBouquetsReport() {
-            fetch(`${API_URL}/bouquet`)
-                .then(res => res.json())
-                .then(data => {
-                    const container = document.getElementById('bouquetsReport');
-                    if (data.length === 0) {
-                        container.innerHTML = '<p style="text-align: center; color: #999;">No bouquets created</p>';
-                        return;
-                    }
-                    
-                    let html = '<table><thead><tr><th>ID</th><th>Name</th><th>Retail Price</th></tr></thead><tbody>';
-                    data.forEach(bouquet => {
-                        html += `<tr>
-                            <td>${bouquet.BouquetID}</td>
-                            <td>${bouquet.BouquetName}</td>
-                            <td>PKR ${bouquet.RetailPrice}</td>
-                        </tr>`;
-                    });
-                    html += '</tbody></table>';
-                    container.innerHTML = html;
-                })
-                .catch(error => {
-                    document.getElementById('bouquetsReport').innerHTML = '<p class="error">Error loading report</p>';
-                });
-        }
+    <div class="table-container">
+        <h2>Delivery Detail Report</h2>
+        <div id="deliveryDetailReport"></div>
+    </div>
 
-        function loadSalesReport() {
-            fetch(`${API_URL}/reports/sales`)
-                .then(res => res.json())
-                .then(data => {
-                    const container = document.getElementById('salesReport');
-                    if (data.length === 0) {
-                        container.innerHTML = '<p style="text-align: center; color: #999;">No sales data available</p>';
-                        return;
-                    }
-                    
-                    let html = '<table><thead><tr><th>Bouquet ID</th><th>Total Flowers Used</th></tr></thead><tbody>';
-                    data.forEach(row => {
-                        html += `<tr>
-                            <td>${row.BouquetID}</td>
-                            <td>${row.TotalFlowers || 0} stems</td>
-                        </tr>`;
-                    });
-                    html += '</tbody></table>';
-                    container.innerHTML = html;
-                })
-                .catch(error => {
-                    document.getElementById('salesReport').innerHTML = '<p style="text-align: center; color: #999;">No sales data available</p>';
-                });
-        }
-    </script>
+    <div class="table-container">
+        <h2>Sales Summary</h2>
+        <div id="salesReport"></div>
+    </div>
+
+</div>
+
+<script>
+
+const API_URL = "https://flower-shop-production-a260.up.railway.app";
+
+window.onload = () => {
+    loadFlowers();
+    loadSuppliers();
+    loadBouquets();
+    loadDelivery();
+    loadDeliveryDetail();
+    loadSales();
+};
+
+// FLOWERS
+function loadFlowers() {
+    fetch(`${API_URL}/reports/flowers`)
+    .then(res => res.json())
+    .then(data => {
+        let html = `<table><tr><th>ID</th><th>Name</th><th>Cost</th></tr>`;
+
+        data.forEach(f => {
+            html += `<tr>
+                <td>${f.FlowerID}</td>
+                <td>${f.CommonName}</td>
+                <td>${f.CostPerStem}</td>
+            </tr>`;
+        });
+
+        html += `</table>`;
+        document.getElementById("flowersReport").innerHTML = html;
+    });
+}
+
+// SUPPLIERS
+function loadSuppliers() {
+    fetch(`${API_URL}/reports/suppliers`)
+    .then(res => res.json())
+    .then(data => {
+        let html = `<table><tr><th>ID</th><th>Name</th><th>Contact</th></tr>`;
+
+        data.forEach(s => {
+            html += `<tr>
+                <td>${s.SupplierID}</td>
+                <td>${s.SupplierName}</td>
+                <td>${s.ContactNumber}</td>
+            </tr>`;
+        });
+
+        html += `</table>`;
+        document.getElementById("suppliersReport").innerHTML = html;
+    });
+}
+
+// BOUQUETS
+function loadBouquets() {
+    fetch(`${API_URL}/reports/bouquets`)
+    .then(res => res.json())
+    .then(data => {
+        let html = `<table><tr><th>ID</th><th>Name</th><th>Price</th></tr>`;
+
+        data.forEach(b => {
+            html += `<tr>
+                <td>${b.BouquetID}</td>
+                <td>${b.BouquetName}</td>
+                <td>${b.RetailPrice}</td>
+            </tr>`;
+        });
+
+        html += `</table>`;
+        document.getElementById("bouquetsReport").innerHTML = html;
+    });
+}
+
+// DELIVERY
+function loadDelivery() {
+    fetch(`${API_URL}/reports/delivery`)
+    .then(res => res.json())
+    .then(data => {
+        let html = `<table><tr><th>ID</th><th>Supplier</th><th>Date</th></tr>`;
+
+        data.forEach(d => {
+            html += `<tr>
+                <td>${d.DeliveryID}</td>
+                <td>${d.SupplierName}</td>
+                <td>${d.DeliveryDate}</td>
+            </tr>`;
+        });
+
+        html += `</table>`;
+        document.getElementById("deliveryReport").innerHTML = html;
+    });
+}
+
+// DELIVERY DETAIL
+function loadDeliveryDetail() {
+    fetch(`${API_URL}/reports/delivery-detail`)
+    .then(res => res.json())
+    .then(data => {
+        let html = `<table><tr>
+            <th>Delivery</th>
+            <th>Supplier</th>
+            <th>Date</th>
+            <th>Flower</th>
+            <th>Qty</th>
+            <th>Price</th>
+        </tr>`;
+
+        data.forEach(r => {
+            html += `<tr>
+                <td>${r.DeliveryID}</td>
+                <td>${r.SupplierName}</td>
+                <td>${r.DeliveryDate}</td>
+                <td>${r.CommonName}</td>
+                <td>${r.QuantityDelivered}</td>
+                <td>${r.BulkPricePaid}</td>
+            </tr>`;
+        });
+
+        html += `</table>`;
+        document.getElementById("deliveryDetailReport").innerHTML = html;
+    });
+}
+
+// SALES
+function loadSales() {
+    fetch(`${API_URL}/reports/sales`)
+    .then(res => res.json())
+    .then(data => {
+        let html = `<table><tr><th>Bouquet</th><th>Total Flowers</th></tr>`;
+
+        data.forEach(r => {
+            html += `<tr>
+                <td>${r.BouquetID}</td>
+                <td>${r.TotalFlowers}</td>
+            </tr>`;
+        });
+
+        html += `</table>`;
+        document.getElementById("salesReport").innerHTML = html;
+    });
+}
+
+</script>
+
 </body>
 </html>
