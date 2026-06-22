@@ -70,6 +70,37 @@ db.connect((err) => {
         (err) => {
             if (err) console.log("Error creating BouquetRecipe table:", err.message);
             else console.log("✓ BouquetRecipe table created");
+        }
+    );
+
+    // Create Delivery table
+    db.query(
+        `CREATE TABLE IF NOT EXISTS Delivery (
+            DeliveryID INT AUTO_INCREMENT PRIMARY KEY,
+            SupplierID INT NOT NULL,
+            DeliveryDate DATE NOT NULL,
+            FOREIGN KEY(SupplierID) REFERENCES Supplier(SupplierID)
+        )`,
+        (err) => {
+            if (err) console.log("Error creating Delivery table:", err.message);
+            else console.log("✓ Delivery table created");
+        }
+    );
+
+    // Create DeliveryDetail table
+    db.query(
+        `CREATE TABLE IF NOT EXISTS DeliveryDetail (
+            DeliveryID INT,
+            FlowerID INT,
+            QuantityDelivered INT NOT NULL,
+            BulkPricePaid DECIMAL(10,2) NOT NULL,
+            PRIMARY KEY (DeliveryID, FlowerID),
+            FOREIGN KEY(DeliveryID) REFERENCES Delivery(DeliveryID),
+            FOREIGN KEY(FlowerID) REFERENCES Flower(FlorID)
+        )`,
+        (err) => {
+            if (err) console.log("Error creating DeliveryDetail table:", err.message);
+            else console.log("✓ DeliveryDetail table created");
             db.end();
             console.log("Database setup complete!");
         }
